@@ -1,19 +1,45 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TodoApp from './App.js';
-import Form from './Form.js'
 
-const todo = {
-  body: [
-    "item1",
-    "item2",
-    "item3"
-  ]
+class NewItem extends React.Component {
+  constructor(props){
+    super()
+    this.state = props
+  }
+  render() {
+    return
+      <form>
+        <input type="text" value='' onChange={ e => this.change(e)} />
+      </form>
+  }
+  change(e){
+    this.setState({
+      newItem: e.target.value
+    })
+  }
 }
 
-ReactDOM.render(
-  <TodoApp
-    todos={todo.body}/>,
+class List extends React.Component {
+  render() {
+    return (
+      <div>
+        <NewItem newItem=''/>
+        <ul>
+          {this.props.items.map( (item, index) => {
+            return <li key={index}>{item}</li>
+          })}
+        </ul>
+      </div>
+    )
+  }
+}
 
+let items = [
+  "learn react",
+  "learn comp sci"
+]
+
+ReactDOM.render(
+  <List items={items}/>,
   document.getElementById('root')
 );
